@@ -1,0 +1,31 @@
+
+#########################
+###    Archwars XD    ###
+#########################
+
+Hi thanks for using this and btw sorry for my english XD
+ok first unpack and copy the folder to your home it should be this way
+"/home/you/conky/"
+now open ~/conky/ and go to mpd folder and open sonata.sh and change " grep Artista " for what is in your language and also the line "Varios artistas-$ALBUM.png " for what it is needed an example
+spanish  =   english
+Artista   =   Artist
+Varios artistas  =  Various Artist (I think xD  hope you get it )
+and make it executable 
+next copy the content in fonts to ~/.fonts and in a terminal run 
+sudo fc-cache -fv 
+for tint2 copy the tint2rc to ~/.confing/tint2/ replace if you want or make a backup of your 
+previous skin 
+and for last just make executable the file "start" and enjoy 
+
+###----Español---###
+
+Hola ! 
+que bueno que te haya gustado mi configuracion 
+primero copia todo a tu home quedando de esta forma
+"/home/tu/conky/
+despues ve a  la carpeta mpd y dale permisos de ejecucion al archivo "sonata.sh" si tu idioma no 
+es el español  revisa el readme para saber que sigue aqui si usas español continua (XD)
+despues copia el contenido de la carpeta fonts a ~/.fonts y en una terminal ejecuta 
+sudo fc-cache -fv 
+dale permisos de ejecucion a "start" ejecutalo y disfruta
+

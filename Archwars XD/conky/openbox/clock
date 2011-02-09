@@ -1,0 +1,58 @@
+# Conky settings #
+background yes
+update_interval 1.0
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit fahrenheit
+
+# Window specifications #
+
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 250 300
+maximum_width 250
+
+alignment tr
+gap_x 120
+gap_y 15
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+
+uppercase no
+
+temperature_unit celsius
+
+
+default_color FFFFFF
+
+TEXT
+${color 222222}${goto 5}${font Galga Bold:size=40}${time %I:%M}${font}
+${voffset 10}${color 000000}${font galga:size=16}${time %A}${font}${voffset -8}${color FFFFFf}${font galga:size=30} ${time %e}${font}
+${color ffffff}${voffset -12}${color ffffff}${font galga:size=18}${time %b}${font}${voffset -3} ${color 000000}${font galga:size=13}${time %Y}
+
+

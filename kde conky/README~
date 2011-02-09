@@ -1,0 +1,20 @@
+#########################
+###     Kde conky    ####
+#########################
+
+Place all in your home the path should be /home/<you>/conky
+For gmail edit gmail.py it is in scripts folder
+For hotmail edit kd1 it is en kde folder
+for updates place pacupd-sh in /etc/cron.hourly and restart cron daemon
+This one comes with a startup scritp use it if you want  ^_^
+
+
+###----Español
+
+
+Para gmail modifica el archivo gmail.py esta en la carpeta scripts y para hotmail modifica la linea en kde1
+copia y pega todas las carpetas a tu home 
+para las actualizacione copia y pega el archivo pacupd.sh a /etc/cron.hourly y dale permisos de ejecucion
+ tambien a conky-updates.pl esta en la carpeta Scripts 
+para el fondo en kde necesitas feh instalalo y si lo usas en otro entorno elimina la ultima linea en kde1 
+dale permisos de ejecucion a start y disfruta XD

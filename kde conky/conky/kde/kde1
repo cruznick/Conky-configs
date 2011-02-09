@@ -1,0 +1,165 @@
+# set to yes if you want Conky to be forked in the background
+background yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Pneumatics BRk:size=35
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 500  500
+maximum_width 500
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+draw_graph_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 0
+
+# border width
+border_width 0
+
+# Default colors and also border colors
+default_color black
+default_shade_color black
+default_outline_color white
+
+# own window options
+own_window		yes
+own_window_transparent	yes
+own_window_type		override
+own_window_hints	undecorated,below,sticky,skip_taskbar,skip_pager
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+#alignment bottom_middle
+#alignment top_middle
+#alignment middle_left
+#alignment middle_middle
+#alignment middle_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 0	
+gap_y 50
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Kolory
+color1 F7F6EB
+color2 969805
+color3	000000
+default_shade_color CACACA 
+default_outline_color bbbbbb
+default_color bfbfbf		
+use_spacer right
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer none
+
+
+# -- Lua Load & mpd-- #
+lua_load $HOME/conky/kde/anillos.lua
+lua_draw_hook_pre widgets
+
+TEXT
+
+${color1}${goto 20}${voffset 20}${font Galga Bold:size=10}Ram${goto 80}Cpu C1${color2}/${color1}C2${goto 195}Wifi
+${color1}${goto 20}${font Galga Bold:size=10}${memperc}${color2}%${goto 80}${color1}${cpu cpu1}${color2}%${color3}/${color1}${cpu cpu2}${color2}%${goto 195}${color1}${wireless_link_qual_perc wlan0}${color2}%
+${voffset 60}${goto 10}${color1}HMail${goto 80}${color2}${execi 300 conkyEmail --servertype=POP --ssl --servername=pop3.live.com  --username=###mail#### --password=####pass### --connectiontimeout=20} new${color1}${goto 145}${font Galga Bold:size=10}Down${color2}/${color1}Up${color2}/s
+${goto 10}${color1}GMail${goto 80}${color2}${execi 300 python $HOME/Scripts/gmail.py}${color1}${goto 145}${font Galga Bold:size=10}${color1}${downspeed wlan0}${color2}/${color1}${upspeed wlan0}
+${voffset 90}${goto 10}${color1}${fs_used /}${goto 100}${fs_used /media/archivos}${goto 195}${battery_percent}${color2}%
+${color1}${goto 10}${color1}${fs_free /}${goto 100}${fs_free /media/archivos}${goto 195}${acpiacadapter}
+${color1}${goto 60}${voffset 70}${execi 3600 perl $HOME/Scripts/arch-updates/conky-updates.pl}
+${image $HOME/conky/kde/iconos/CPU.png -s 50x50 -p 100,20}
+${image $HOME/conky/kde/iconos/Wifi.png -s 50x50 -p 190,20}
+${image $HOME/conky/kde/iconos/trafic.png -s 50x50 -p 160,130}
+${image $HOME/conky/kde/iconos/MAIL.png -s 50x50 -p 30,130}
+${image $HOME/conky/kde/iconos/NOTEBOOK.png -s 60x60 -p 10,220}
+${image $HOME/conky/kde/iconos/HDD.png -s 60x60 -p 100,220}
+${if_match "${execi 3600 pacman -Qu | wc -l | grep 0}" != ""} 
+${image $HOME/conky/kde/iconos/Pacman.png -s 50x50 -p 100,340}
+${else}
+${image $HOME/conky/kde/iconos/Pacman2.png -s 50x50 -p 100,340}
+${endif}
+${if_match "${execi 10 cat /proc/acpi/ac_adapter/ACAD/state  | grep on-line}" != ""}
+			${image $HOME/conky/kde/iconos/cargando.png -s 50x50 -p 190,220}
+${else}
+		${if_match $battery_percent > 90}
+	${image $HOME/conky/kde/iconos/battery.full.png -s 50x50 -p 190,220}
+${else}
+${if_match $battery_percent > 80}
+					${image $HOME/conky/kde/iconos/battery.drip.png -s 50x50 -p 190,220}
+${else}	
+${if_match $battery_percent > 50}
+					${image $HOME/conky/kde/iconos/battery.dark.png -s 50x50 -p 190,10}
+${else}	
+${if_match $battery_percent > 30}
+						${image $HOME/conky/kde/iconos/battery.30.png -s 50x50 -p 190,220}
+${else}
+${if_match $battery_percent > 20}
+						${image $HOME/conky/kde/iconos/battery.20.png -s 50x50 -p 190,220}
+${else}
+${if_match $battery_percent > 10}
+						${image $HOME/conky/kde/iconos/battery.10.png -s 50x50 -p 190,220}
+${else}
+${if_match $battery_percent < 10}
+						${image $HOME/conky/kde/iconos/battery.10.png -s 50x50 -p 190,220}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${if_match $memperc > 90}
+	${image $HOME/conky/kde/iconos/RAMR.png -s 50x50 -p 10,20}
+${else}
+	${if_match $memperc > 75}
+		${image $HOME/conky/kde/iconos/RAMY.png -s 50x50 -p 10,20}
+	${else}
+		${image $HOME/conky/kde/iconos/RAM.png -s 50x50 -p 10,20}
+	${endif}
+${endif}
+${exec feh --bg-scale "`grep 'wallpaper=' ~/.kde4/share/config/plasma-desktop-appletsrc | tail --lines=1 | sed 's/wallpaper=//'`"}

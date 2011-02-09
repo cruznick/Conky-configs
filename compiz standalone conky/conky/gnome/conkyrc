@@ -1,0 +1,121 @@
+
+# set to yes if you want Conky to be forked in the background
+background yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Pneumatics BRk:size=35
+
+# Text alpha when using Xft
+xftalpha 0.8
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 1300 100
+#maximum_width 1
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+draw_graph_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 0
+
+# border width
+border_width 0
+
+# Default colors and also border colors
+default_color black
+default_shade_color black
+default_outline_color white
+
+# own window options
+own_window		yes
+own_window_transparent	yes
+own_window_type		override
+own_window_hints	undecorated,below,sticky,skip_taskbar,skip_pager
+# Text alignment, other possible values are commented
+#alignment top_left
+#alignment top_right
+alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 0	
+gap_y -50
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Kolory
+color1 F7F6EB
+color2 969805
+color3	4C384A
+default_shade_color CACACA 
+default_outline_color bbbbbb
+default_color bfbfbf		
+use_spacer right
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer none
+
+# -- Lua Load & mpd-- #
+lua_load $HOME/conky/gnome/gnome.lua 
+lua_draw_hook_pre ring_stats
+#lua_load $HOME/conky/gnome/album.lua
+#lua_draw_hook_pre photo_album
+mpd_host localhost
+mpd_port 6600
+imlib_cache_size 0
+use_spacer none
+
+TEXT
+${image $HOME/conky/img/background.png -s 1300x50}${voffset -15}${font Pneumatics BRk:size=9}${color2}Cpu 1 : ${color1}${cpu cpu1}%${color2}${goto 100}Ram :   ${color1}${memperc}%${goto 200}${color2}Archivos : ${goto 270}${color1}${fs_used_perc /media/archivos}%${goto 300}${color2}Bat :${goto 340}${color1}${battery_percent BAT0}%${goto 370}${font Pneumatics BRk:size=7}${color1}*${color2} Ac: ${color1}${acpiacadapter}${goto 425}${color2} Freq : ${color1}${freq_g 1}${color2}/${color1}${freq_g 2}${color2} Temp : ${color1}${hwmon 1 temp 1}${color2}/${color1}${hwmon 2 temp 1}${voffset 2}${color1}${goto 617}${font Digital Readout Thick Upright:size=20}${time %I}:${time %M}
+${voffset -25}${goto 50}${font Pneumatics BRk:size=9}${color2}Cpu 2 : ${color1}${cpu cpu2}%${goto 150}${color2}Swap :${goto 200}${color1}${swapperc}%${goto 265}${color2} /: ${goto 295}${color1}${fs_used_perc /}%${goto 345}${color2}Wifi : ${color1}${wireless_link_qual_perc wlan0}% ${goto 405}${font Pneumatics BRk:size=7}${color1}*${color2} Down:  ${color1}${downspeed wlan0}/s ${goto 490}${color2}Up:  ${color1}${upspeed wlan0}  
+
+${if_mpd_playing}${execi 5 $HOME/conky/mpd/sonata.sh}${image $HOME/conky/mpd/currentcover.png -p 715,15 -s 30x30}${font Pneumatics BRk:size=7}${color1}${voffset -40}${goto 770}${mpd_status}${color1}${goto 815}Repeat : ${color2}${mpd_repeat}${color1}  Random : ${color2}${mpd_random}${color1}  Vol : ${color2}${mpd_vol}
+${font Pneumatics BRk:size=8}${color1}${goto 770}${mpd_artist}${color2} / ${color1}${mpd_title}
+${font Pneumatics BRk:size=7}${color1}${goto 770}${mpd_album}${color2}   ${mpd_bar 3,100} ${color1}${mpd_elapsed} ${color2}/${color1} ${mpd_length}
+$else${image $HOME/conky/img/archlinux-wm-gnome.png -p 715,15 -s 30x30}${font Pneumatics BRk:size=8}${color2}${voffset -35}${goto 770}Kernel : ${color1}${conky_build_arch}
+${goto 770}${color2}Uptime : ${color1}${uptime}
+${goto 1000}${color1}${voffset -30}Falta :
+${goto 1020}${voffset 3}${execpi 20 cat ~/ToDo.txt | sed -n '1,12p' | sed 's/^/${font Pneumatics BRk:size=8}${color1}${voffset -5}${goto 1030}/'}
+$endif
+${voffset -40}${goto 1150}${color1}* ${color2}Hotmail : ${goto 1200}${color1}${execi 120 conkyEmail --ssl --servertype=POP --servername=pop3.live.com --username=######@hotmail.com --password=#######}
+${goto 1155}${color1}* ${color2}GMail : ${goto 1200}${color1}${execi 300 python $HOME/conky/mpd/gmail.py}
+

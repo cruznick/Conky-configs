@@ -1,0 +1,7 @@
+#!/bin/bash
+sleep 10
+conky -q -DD -d -c $HOME/conky/kde/kde1 &
+notify-send "conky on" &
+espeak -s 100 -v en-us+f0 "conkeee on"
+sleep 2
+python $HOME/Scripts/mpd_infos.py &

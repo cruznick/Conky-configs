@@ -1,0 +1,14 @@
+####################################################################
+##  Compiz standalone with a bottom bar conky wih mpd and gmail   ##
+####################################################################
+
+Very simple conky easy to setup just place the folder named "conky" at your home and launch 
+"conky -c ~/conky/gnome/conkyrc"
+Inside "extras" is the wallpaper
+
+###----Español----###
+
+Conky muy facil de usar solo copia la carpete conky a tu home y lanza conky con el siguiente comando 
+"conky -c ~/conky/gnome/conkyrc"
+Dentro del folder extras esta el fondo de pantalla
+

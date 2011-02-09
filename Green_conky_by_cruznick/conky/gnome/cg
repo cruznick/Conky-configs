@@ -1,0 +1,121 @@
+background yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Raveparty oblique:size=10
+
+# Text alpha when using Xft
+xftalpha 1
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 400 400
+maximum_width 1280
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+draw_graph_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+#border_margin 0
+
+# border width
+border_width 0
+
+# Default colors and also border colors
+default_color black
+default_shade_color black
+default_outline_color white
+
+# own window options
+own_window		yes
+own_window_transparent	no
+own_window_type override
+own_window_hints	undecorated,below,sticky,skip_taskbar,skip_pager
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+#alignment bottom_middle
+#alignment top_middle
+#alignment middle_left
+#alignment middle_middle
+#alignment middle_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 0	
+gap_y 0
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 1
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 1
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Kolory
+color1 52E722
+color2 FFFFFF
+color3	BEFF00
+color4 FF4D00
+default_shade_color CACACA 
+default_outline_color bbbbbb
+default_color bfbfbf		
+use_spacer left
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+
+
+# -- Lua Load & mpd-- #
+mpd_host localhost
+mpd_port 6600
+imlib_cache_size 0
+lua_load $HOME/conky/gnome/anillos.lua
+lua_draw_hook_pre widgets
+TEXT
+${voffset 30}${color1}${goto 150}${font Raveparty oblique:size=20}${time %I:%M}
+${goto 150}${voffset -10}${font Raveparty oblique:size=10}${time %A}${color3} ${time %e}${time %b}${voffset -3} ${color4}${font Raveparty Oblique:size=7}${time %Y}
+${voffset 40}${goto 90}${font Raveparty oblique:size=8}${color1}CPU${goto 130}${color3}${cpu cpu1}${color4}%/${color3}${cpu cpu2}${color4}%${goto 195}${color1}RAM${goto 235}${color3}${memperc}${color4}%${goto 285}${color1}Swap${goto 325}${color3}${swapperc}${color4}%
+${color1}${goto 100}Wifi ${goto 130} ${color3}${wireless_link_qual_perc wlan0}${color4}% ${color1}${goto 200}Bat ${goto 235} ${color3}${battery_percent BAT0}${color4}%
+${goto 150}${color1}Apt-Upd ${goto 240}${color3}${execi 4200 perl ~/Scripts/aptupd/conky-updates.pl}
+${if_mpd_playing}${color1}MPD ${color4}${hr}${execi 2 $HOME/conky/mpd/sonata.sh}${image $HOME/conky/mpd/currentcover.png -p 330,195 -s 50x50}${image $HOME/conky/mpd/cover.png -s 55x57 -p 327,192}${color3}
+${mpd_status} 
+${mpd_artist} 
+${mpd_title}
+${mpd_album}
+${color1}${mpd_bar 2,150} ${mpd_elapsed} / ${mpd_length}
+${color4}${hr}
+${else}${color4}${hr}
+${endif}

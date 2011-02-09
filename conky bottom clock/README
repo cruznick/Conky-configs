@@ -1,0 +1,38 @@
+#############################
+###  conky bottom clock   ###
+#############################
+Hi 
+
+first you need to place the two hidden folders into your home directory
+their names are .conky and .scripts (Ctrl + H to see them xD ) 
+
+second place the fonts from the font folder into yours at /home/.fonts 
+and in a terminal type 'sudo fc-cache -f -v' for updating the font cache
+
+third this is the comand you need if yo follow this instructions XD
+
+conky -c ~/.conky/conkyrc3 &
+
+enjoy
+
+messages to my email
+cruznickbjm@gmail.com 
+
+
+###----Español----####
+hola
+
+primero copia las carpetas ocultas en tu home las carpetas son 
+.scripts y .conky (ctrl + h para verlas xD)
+segundo copia las fuentes de la carpeta fonts a tu carpteta .fonts que esta en /home/
+y en una terminal pon 'sudo fc-cache -f -v' para regenerar el cache
+
+tercero este es el comando para iniciarlo si seguiste estas instrucciones xD
+
+conky -c ~/.conky/conkyrc3 &
+
+disfrutalo
+
+mensajes a mi correo 
+
+cruznickbjm@gmail.com 

@@ -1,0 +1,7 @@
+#!/bin/bash
+sleep 20 
+conky -q -d -c $HOME/conky/openbox/cp1 &
+sleep 2 
+conky -q -d -c $HOME/conky/openbox/cp2 &
+sleep 3
+conky -q -d -c $HOME/conky/openbox/cp1 &

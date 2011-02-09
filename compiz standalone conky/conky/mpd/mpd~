@@ -1,0 +1,64 @@
+## Conky Sonata
+background yes
+out_to_console no
+top_cpu_separate yes
+max_port_monitor_connections 256
+cpu_avg_samples 1
+#net_avg_samples 1
+update_interval 1
+
+# Text	
+uppercase no
+override_utf8_locale yes
+font Charter:style=Regular
+use_xft yes
+xftfont GE Inspira:bold:size=9
+
+# Window
+own_window yes
+own_window_class Conky
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_type desktop
+own_window_colour 000000
+
+# Grafika
+double_buffer yes
+draw_borders no
+draw_graph_borders no
+draw_shades no
+draw_outline no
+
+# Layout
+alignment bl
+gap_x 5
+gap_y 30
+maximum_width 350
+minimum_size 350 100
+
+# Kolory
+color1 ffffff
+color2 969805		# braz
+default_shade_color CACACA 
+default_outline_color bbbbbb
+default_color bfbfbf		#ciemny 141414
+
+mpd_host localhost
+mpd_port 6600
+imlib_cache_size 0
+use_spacer left
+
+TEXT
+${if_mpd_playing}${execi 5 $HOME/conky/mpd/sonata.sh}${image $HOME/conky/mpd/1.png  -s 350x100}${image $HOME/conky/mpd/currentcover.png -p 10,10 -s 75x75}
+$else${image $HOME/conky/mpd/currentcover.png -p 24,24 -s 100x100}
+$else${image $HOME/conky/mpd/be.png -p 0,-5}
+$endif$endif
+${if_mpd_playing}
+${color1}${voffset -25}${goto 110}${mpd_status}${color1}${font GE Inspira:size=6:italic}${goto 180}Repeat : ${color2}${mpd_repeat}${color1}  Random : ${color2}${mpd_random}${color1}  Vol : ${color2}${mpd_vol}
+${font GE Inspira:size=9:italic}${color1}${goto 110}${mpd_artist}
+${goto 110}${mpd_title}
+${color1}${font GE Inspira:size=7:italic}${goto 110}${mpd_album}
+${color1}${goto 110}${mpd_bar 3,100}${color1}${goto 260}${mpd_elapsed}/${mpd_length}
+${endif}
+
+

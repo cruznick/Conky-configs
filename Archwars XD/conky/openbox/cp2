@@ -1,0 +1,205 @@
+
+# set to yes if you want Conky to be forked in the background
+background yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+xftfont Santana:size=20
+
+# Text alpha when using Xft
+xftalpha 1
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 450  70
+#maximum_width 60
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+draw_graph_borders yes
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+#border_margin 0
+
+# border width
+border_width 0
+
+# Default colors and also border colors
+default_color black
+default_shade_color black
+default_outline_color white
+
+# own window options
+own_window		yes
+own_window_transparent	yes
+own_window_type override
+own_window_hints	undecorated,below,sticky,skip_taskbar,skip_pager
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 0	
+gap_y 0
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 1
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 1
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Kolory
+color1 000000
+color2 FFFFFF
+color3	4C384A
+default_shade_color CACACA 
+default_outline_color bbbbbb
+default_color bfbfbf		
+use_spacer left
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+
+
+# -- Lua Load & mpd-- #
+mpd_host localhost
+mpd_port 6600
+imlib_cache_size 0
+TEXT
+${if_mpd_playing}
+${image $HOME/conky/openbox/icons/sonataon.png -s 48x48 -p 10,240}${image $HOME/conky/openbox/icons/notifympd.png - -p 50,215 -s 290x114}
+${execi 1 $HOME/conky/mpd/sonata.sh}${image $HOME/conky/mpd/currentcover.png -p 90,230 -s 45x45}${image $HOME/conky/openbox/icons/cover.png -s 50x52 -p 87,227}${voffset 160}${font Santana:size=7}${color2}${goto 155}Repeat ${font Santana:bold:size=7}${color1} : ${font Santana:size=7}${color2}${mpd_repeat}${color1}/${color2}Random ${font Santana:bold:size=7}${color1} : ${font Santana:size=7}${color2}${mpd_random}${color1}/${color2}Vol ${color1}${font Santana:bold:size=7} : ${font Santana:size=7}${color2}${mpd_vol}
+${voffset 5}${font Santana:size=7}${color2}${goto 155}${mpd_status} ${color1} :
+${voffset 4}${font Santana:size=8}${color2}${goto 155}${mpd_artist}${color2} 
+${voffset 4}${font Santana:size=8}${goto 155}${color2}${mpd_title}
+${goto 100}${voffset 6}${color2}${font Santana:size=8}${mpd_album}
+${voffset 5}${color2}${goto 100}${mpd_bar 3,150}${goto 275} ${color2}${mpd_elapsed}${color1}${font Santana:bold:size=8} / ${font Santana:size=8}${color2}${mpd_length}
+${else}
+${image  $HOME/conky/openbox/icons/sonataoff.png -s 48x48 -p 10,240}
+$endif
+
+
+${if_match "${execi 10 cat /proc/acpi/ac_adapter/ACAD/state  | grep on-line}" != ""}
+			${image $HOME/conky/openbox/icons/cargando.png -p 10,10}
+${else}
+		${if_match $battery_percent > 90}
+	${image $HOME/conky/openbox//icons/battery.full.png -p 10,10}
+${else}
+${if_match $battery_percent > 80}
+					${image ~$HOME/conky/openbox/icons/battery.drip.png -p 10,10}
+${else}	
+${if_match $battery_percent > 50}
+					${image $HOME/conky/openbox/icons/battery.dark.png -p 10,10}
+${else}	
+${if_match $battery_percent > 30}
+						${image $HOME/conky/openbox/icons/battery.30.png -p 10,10}
+${else}
+${if_match $battery_percent > 20}
+						${image $HOME/conky/openbox/icons/battery.20.png -p 10,10}
+${else}
+${if_match $battery_percent > 10}
+						${image $HOME/conky/openbox/icons/battery.10.png -p 10,10}
+${else}
+${if_match $battery_percent < 10}
+						${image $HOME/conky/openbox/icons/battery.10.png -p 10,10}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+${endif}
+
+${if_match $memperc > 90}
+	${image $HOME/conky/openbox/icons/memory.red.png -p 10,65}
+${else}
+	${if_match $memperc > 75}
+		${image $HOME/conky/openbox/icons/memory.yellow.png -p 10,65}
+	${else}
+		${image $HOME/conky/openbox/icons/memory.dark.png -p 10,65}
+	${endif}
+${endif}
+
+${if_existing /sys/class/bluetooth/hci0}
+	${image $HOME/conky/openbox/icons/bluetooth.on.png -p 10,120}
+${else}
+	${image $HOME/conky/openbox/icons/bluetooth.dark.png -p 10,120}
+${endif}
+ 
+${if_up wlan0}
+	${if_match ${wireless_link_qual wlan0} == 0}
+		${image $HOME/conky/openbox/icons/wlan.not.connected.png -p 10,180}
+	${else}
+		${if_match ${wireless_link_qual wlan0} < 10}
+			${image $HOME/conky/openbox/icons/wlan.failing.png -p 10,180}
+		${else}
+			${if_match ${wireless_link_qual wlan0} < 20}
+				${image ~$HOME/conky/openbox/icons/wlan.bad.png -p 10,180}
+			${else}
+				${if_match ${wireless_link_qual wlan0} < 40}
+					${image $HOME/conky/openbox/icons/wlan.weak.png -p 10,180}
+				${else}
+					${if_match ${wireless_link_qual wlan0} < 60}
+						${image $HOME/conky/openbox/icons/wlan.normal.png -p 10,180}
+					${else}
+						${if_match ${wireless_link_qual wlan0} < 80}
+							${image $HOME/conky/openbox/icons/wlan.good.png -p 10,180}
+						${else}
+							${if_match ${wireless_link_qual wlan0} < 95}							
+								${image $HOME/conky/openbox/icons/wlan.strong.png -p 10,180}
+							${endif}
+						${endif}
+					${endif}
+				${endif}
+			${endif}
+		${endif}
+	${endif}
+${else}
+	${image $HOME/conky/openbox/icons/wlan.dark.png -p 10,180}
+${endif}
+${if_existing /media/disk}
+${image $HOME/conky/openbox/icons/USB.png -s 50x50 -p 10,290}
+${endif}
+${if_existing /media/disk-1}
+${image $HOME/conky/openbox/icons/USB.png -s 50x50 -p 10,340}
+${endif}
+${if_existing /media/disk-2}
+${image $HOME/conky/openbox/icons/USB.png -s 50x50 -p 10,390}
+${endif}
+${if_existing /media/disk-3}
+${image $HOME/conky/openbox/icons/USB.png -s 50x50 -p 10,440}
+${endif}
